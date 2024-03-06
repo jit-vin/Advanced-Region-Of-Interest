@@ -19,7 +19,6 @@ cap=cv2.VideoCapture('mumbaitraffic.mp4')
 
 area=[(792,296), (713,353), (867,376), (988,351), (972,313), (792,296)]
 
-
 while True:
     ret,frame=cap.read()
     if not ret:
@@ -36,11 +35,11 @@ while True:
         x2 = int(row['xmax'])
         y2 = int(row['ymax'])
         d=(row['name'])
-#        print(d)
+
         cx = int(x1 + x2) // 2
         cy = int(y1 + y2) // 2
         results = cv2.pointPolygonTest(np.array(area,np.int32),((cx,cy)),False)
-#        print(results)
+
         if results >= 0:
             cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
             cv2.putText(frame,str(d),(x1,y1),cv2.FONT_HERSHEY_COMPLEX,0.5,(255,0,0),2)
@@ -50,5 +49,4 @@ while True:
     if cv2.waitKey(1)&0xFF==27:
         break
 cap.release()
-#stream.release()
 cv2.destroyAllWindows()
